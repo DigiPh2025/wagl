@@ -1,0 +1,744 @@
+PageView.builder(
+                      controller: homeController.pageViewController,
+                      // onPageChanged: homeController.handlePageViewChanged,
+                      scrollDirection: Axis.vertical,
+                      scrollBehavior: ScrollBehavior(),
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: homeController.storyItems.length,
+                      itemBuilder: (context, index) {
+                        final personStories = homeController.storyItems[index];
+                        return Stack(
+                          children: [
+                            StoryView(
+                              onVerticalSwipeComplete: (value) {
+
+                                Direction? direction;
+                                direction = value;
+                                if (direction == Direction.up) {
+                                  print("Here is the direction call");
+                                  homeController.updateWaglIndex(
+                                      homeController.currentPageIndex + 1);
+                                } else {
+                                  homeController.updateWaglIndex(
+                                      homeController.currentPageIndex - 1);
+                                }
+                              },
+
+                              storyItems: personStories.stories,
+                              onComplete: () {},
+                              progressPosition: ProgressPosition.top,
+                              repeat: false,
+                              onStoryShow: (value) {
+                                // homeController.storyItems[index].controller.playbackNotifier.value.index
+                              },
+                              controller:
+                                  homeController.storyItems[index].controller,
+                            ),
+                            // Center(
+                            //   child: Container(
+                            //     height: 100*SizeConfig.heightMultiplier,
+                            //     width: 50*SizeConfig.widthMultiplier,
+                            //     color: Colors.transparent,
+                            //   ),
+                            // ),
+                            Positioned(
+                              top: 0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 100 * SizeConfig.widthMultiplier,
+                                  height: 10 * SizeConfig.heightMultiplier,
+                                  child: Row(children: [
+                                    /* Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          image: profileController.image != null
+                                              ? FileImage(profileController.image!)
+                                              : (profileController.profileImg != null)
+                                              ? NetworkImage(
+                                              profileController.profileImgUrl)
+                                              : AssetImage("assets/images/no_profile.png")
+                                          as ImageProvider,
+                                          // Use NetworkImage for network images
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Image.network(
+                                          "${homeController
+                                              .storyItems[index].profileImage}",
+                                            width:
+                                                8 * SizeConfig.widthMultiplier,
+                                            height:
+                                                4 * SizeConfig.heightMultiplier,
+                                            fit: BoxFit.fill,
+                                         ),
+                                      ),
+                                    ),*/
+                                    GestureDetector(
+                                      onTap: () async {
+
+                                        if (ApiClient.box.read("userId") !=
+                                            personStories.userId) {
+                                          var profilecontroller =
+                                          Get.put(ProfileController());
+                                          profilecontroller.getFollowersList();
+                                          var result = profilecontroller
+                                              .getUsersWagl(
+                                              personStories.userId!);
+                                          profilecontroller.getFollowersList();
+                                          print("here ${personStories.userId}");
+                                          print("here ${index}");
+                                          profilecontroller.userAttributeIndex=index;
+                                          profilecontroller.userAttributeId=personStories.userId;
+                                          // homeController.isOwnProfile=false;
+                                          profilecontroller.updateProfilePage(false);
+                                          // homeController.updateProfilePage(false);
+                                          homeController.changeTabIndex(4);
+
+                                          /* Get.to(UserProfileView(
+                                            userDetails: homeController
+                                                .wagls![index]
+                                                .attributes!
+                                                .userId!
+                                                .data!
+                                                .attributes,
+                                            id: personStories.userId!,
+                                          ));*/
+                                        }
+                                        /*    Get.to(()=>VideoPage());*/
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 8 * SizeConfig.widthMultiplier,
+                                            height: 4 * SizeConfig.heightMultiplier,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: personStories.profileImage ==
+                                                        null
+                                                    ? AssetImage(
+                                                        "assets/images/no_profile.png")
+                                                    : NetworkImage(
+                                                            "${homeController.storyItems[index].profileImage}")
+                                                        /* : AssetImage("assets/images/no_profile.png")*/
+                                                        as ImageProvider,
+                                                // Use NetworkImage for network images
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 3 * SizeConfig.widthMultiplier,
+
+                                          ),
+                                          CustText(
+                                              name: homeController
+                                                  .storyItems[index].username,
+                                              size: 1.6,
+                                              colors: colorWhite,
+                                              fontWeightName: FontWeight.w800)],
+                                      ),
+                                    ),
+                                    ApiClient.box.read("userId") !=
+                                            personStories.userId
+                                        ? Row(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 2 *
+                                                        SizeConfig
+                                                            .widthMultiplier),
+                                                child: Container(
+                                                  width: 1 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  height: 1 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap:
+                                                    homeController.isProcessing
+                                                        ? null
+                                                        : () {
+                                                            if (homeController
+                                                                .isProcessing) {
+                                                              print(
+                                                                  "\n\n Processing");
+                                                            } else {
+                                                              homeController.updateFollower(
+                                                                  index,
+                                                                  personStories
+                                                                      .userId!,
+                                                                  !homeController.checkedFollowedUser(
+                                                                      homeController
+                                                                          .storyItems[
+                                                                              index]
+                                                                          .userId!,
+                                                                      index));
+                                                            }
+                                                          },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey,
+                                                        width: 0.25 *
+                                                            SizeConfig
+                                                                .widthMultiplier),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                      2 *
+                                                          SizeConfig
+                                                              .imageSizeMultiplier,
+                                                    )),
+                                                    shape: BoxShape.rectangle,
+                                                  ),
+                                                  height: 4 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  child: Center(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.symmetric(
+                                                          horizontal: 3.0 *
+                                                              SizeConfig
+                                                                  .widthMultiplier),
+                                                      child: CustText(
+                                                          name: homeController.checkedFollowedUser(
+                                                                  homeController
+                                                                      .storyItems[
+                                                                          index]
+                                                                      .userId!,
+                                                                  index)
+                                                              ? "Following"
+                                                              : "Follow",
+                                                          size: 1.6,
+                                                          colors: colorWhite,
+                                                          fontWeightName:
+                                                              FontWeight.w800),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        : Container(),
+                                  ]),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                bottom: 0,
+                                child: Container(
+                                  width: 100 * SizeConfig.widthMultiplier,
+                                  height: 25 * SizeConfig.heightMultiplier,
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                      colors: [
+                                        Colors.black,
+                                        Colors.transparent
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                            Positioned(
+                              bottom: 0,
+                              child: Container(
+                                width: 100 * SizeConfig.widthMultiplier,
+                                height: 50 * SizeConfig.heightMultiplier,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              2.0 * SizeConfig.widthMultiplier),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          personStories.location ==
+                                                      " Add locations" ||
+                                                  personStories.location == " "
+                                              ? Container()
+                                              : CustText(
+                                                  name: personStories.location,
+                                                  size: 1.2,
+                                                  colors: colorWhite,
+                                                  fontWeightName:
+                                                      FontWeight.w400),
+                                          personStories.location ==
+                                                      " Add locations" ||
+                                                  personStories.location == " "
+                                              ? Container()
+                                              : Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 1 *
+                                                          SizeConfig
+                                                              .heightMultiplier),
+                                                  child: Container(
+                                                    width: 1 *
+                                                        SizeConfig
+                                                            .widthMultiplier,
+                                                    height: 1 *
+                                                        SizeConfig
+                                                            .heightMultiplier,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                          CustText(
+                                              name:
+                                                  "${personStories.views ?? "0"} views",
+                                              size: 1.2,
+                                              colors: colorWhite,
+                                              fontWeightName: FontWeight.w400),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 0.5 * SizeConfig.heightMultiplier,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              2.0 * SizeConfig.widthMultiplier),
+                                      child: SizedBox(
+                                        width: 70 * SizeConfig.widthMultiplier,
+                                        child: ReadMoreText(
+                                          trimLines: 3,
+                                          text: personStories.description ?? "",
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 1 * SizeConfig.heightMultiplier,
+                                    ),
+                                    Container(
+                                      height: 4 * SizeConfig.heightMultiplier,
+                                      color: Colors.black,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: ListView(
+                                              scrollDirection: Axis.horizontal,
+                                              controller: _scrollController,
+                                              children: [
+                                                ...homeController
+                                                    .wagls![index]
+                                                    .attributes!
+                                                    .interestedCategories!
+                                                    .data!
+                                                    .map((categoriesTag) =>
+                                                        buildCategoriesTag(
+                                                            categoriesTag))
+                                                    .toList(),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: homeController
+                                                          .wagls![index]
+                                                          .attributes!
+                                                          .goodTags!
+                                                          .data
+                                                          .isNotEmpty
+                                                      ? SvgPicture.asset(
+                                                          "assets/icons/dot_icon.svg",
+                                                          height: 1 *
+                                                              SizeConfig
+                                                                  .heightMultiplier,
+                                                          width: 2 *
+                                                              SizeConfig
+                                                                  .widthMultiplier,
+                                                          fit: BoxFit.contain,
+                                                          color:
+                                                              colorGreyLight2,
+                                                        )
+                                                      : Container(),
+                                                ),
+                                                ...homeController.wagls![index]
+                                                    .attributes!.goodTags!.data
+                                                    .map((tag) => buildGoodTags(
+                                                        index, tag))
+                                                    .toList(),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      color: colorBlack,
+                                      height: 2 * SizeConfig.heightMultiplier,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              right: 0,
+                              bottom: 10 * SizeConfig.heightMultiplier,
+                              child: Container(
+                                width: 15 * SizeConfig.widthMultiplier,
+                                height: 40 * SizeConfig.heightMultiplier,
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: homeController.isProcessing
+                                            ? null
+                                            : () async {
+                                                /*  homeController.updateIsLikeFlag( homeController
+                                              .checkedLikedPost(
+                                              homeController
+                                                  .wagls![index].id));*/
+
+                                                print(
+                                                    "\n\n if {consition} \n\n");
+                                                await homeController.likeWagl(
+                                                    homeController
+                                                        .checkedLikedPost(
+                                                            homeController
+                                                                .wagls![index]
+                                                                .id),
+                                                    homeController
+                                                        .wagls![index].id,
+                                                    index,
+                                                    !homeController
+                                                        .checkedLikedPost(
+                                                            homeController
+                                                                .wagls![index]
+                                                                .id));
+                                              },
+                                        child: HezaOutline(
+                                          iconPath: homeController
+                                                  .checkedLikedPost(
+                                                      homeController
+                                                          .wagls![index].id)
+                                              ? "assets/icons/like_icon.png"
+                                              : "assets/icons/unlike_icon.png",
+                                          /* iconPath: homeController
+                                                  .storyItems[index].liked
+                                              ? "assets/icons/like_icon.png"
+                                              : "assets/icons/unlike_icon.png",*/
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            0.5 * SizeConfig.heightMultiplier,
+                                      ),
+                                      CustText(
+                                        name: homeController
+                                            .storyItems[index].likes
+                                            .toString() /*"${homeController.incrementStringNumber(homeController
+                                            .storyItems[index].likes,homeController
+                                            .storyItems[index].liked)}"*/
+                                        ,
+                                        size: 1.6,
+                                        colors: colorWhite,
+                                        fontWeightName: FontWeight.w700,
+                                      ),
+                                      SizedBox(
+                                        height: 1 * SizeConfig.heightMultiplier,
+                                      ),
+                                      CommentSectionView(
+                                        index: index,
+                                        // parentContext: context,
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            0.5 * SizeConfig.heightMultiplier,
+                                      ),
+                                      CustText(
+                                        name: personStories.totalComments
+                                            .toString(),
+                                        size: 1.6,
+                                        colors: colorWhite,
+                                        fontWeightName: FontWeight.w700,
+                                      ),
+                                      SizedBox(
+                                        height: 1 * SizeConfig.heightMultiplier,
+                                      ),
+                                      GestureDetector(
+                                        onTap: homeController.isProcessing
+                                            ? null
+                                            : () async {
+                                                await homeController.saveWagl(
+                                                    homeController
+                                                        .checkedSavedPost(
+                                                            homeController
+                                                                .wagls![index]
+                                                                .id),
+                                                    homeController
+                                                        .wagls![index].id,
+                                                    index,
+                                                    !homeController
+                                                        .checkedSavedPost(
+                                                            homeController
+                                                                .wagls![index]
+                                                                .id));
+                                              },
+                                        child: HezaOutline(
+                                          iconPath: homeController
+                                                  .checkedSavedPost(
+                                                      homeController
+                                                          .wagls![index].id)
+                                              ? "assets/icons/unsaved_icon.png"
+                                              : "assets/icons/saved_icon.png",
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            0.5 * SizeConfig.heightMultiplier,
+                                      ),
+                                      CustText(
+                                        name: "${personStories.totalSaved}",
+                                        size: 1.6,
+                                        colors: colorWhite,
+                                        fontWeightName: FontWeight.w700,
+                                      ),
+                                      SizedBox(
+                                        height: 1 * SizeConfig.heightMultiplier,
+                                      ),
+                                      Image.asset(
+                                        "assets/icons/product_icon.png",
+                                        width: 11 * SizeConfig.widthMultiplier,
+                                        height: 6 * SizeConfig.heightMultiplier,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet<void>(
+                                            context: context,
+                                            backgroundColor: backgroundDialog,
+                                            builder: (BuildContext context) {
+                                              return SizedBox(
+                                                height: 25 *
+                                                    SizeConfig.heightMultiplier,
+                                                width: 100 *
+                                                    SizeConfig.widthMultiplier,
+                                                child: Stack(
+                                                  children: <Widget>[
+                                                    Positioned(
+                                                        top: 0,
+                                                        child: Image.asset(
+                                                          "assets/background/dailog_bg.png",
+                                                          width: 100 *
+                                                              SizeConfig
+                                                                  .widthMultiplier,
+                                                          height: 10 *
+                                                              SizeConfig
+                                                                  .heightMultiplier,
+                                                          fit: BoxFit.fill,
+                                                        )),
+                                                    Positioned(
+                                                      top: 3 *
+                                                          SizeConfig
+                                                              .heightMultiplier,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .rectangle,
+                                                              color:
+                                                                  colorBlack2Light,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    50),
+                                                              ),
+                                                            ),
+                                                            height: 0.7 *
+                                                                SizeConfig
+                                                                    .heightMultiplier,
+                                                            width: 12.5 *
+                                                                SizeConfig
+                                                                    .widthMultiplier,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 6 *
+                                                                SizeConfig
+                                                                    .widthMultiplier,
+                                                          ),
+                                                          CustText(
+                                                            name:
+                                                                "Wagl options",
+                                                            size: 2.0,
+                                                            colors: colorWhite,
+                                                            fontWeightName:
+                                                                FontWeight.w800,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 4 *
+                                                                SizeConfig
+                                                                    .widthMultiplier,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5 *
+                                                                SizeConfig
+                                                                    .heightMultiplier,
+                                                            width: 100 *
+                                                                SizeConfig
+                                                                    .widthMultiplier,
+                                                            child: Divider(
+                                                              color:
+                                                                  borderColor,
+                                                              indent: 3 *
+                                                                  SizeConfig
+                                                                      .widthMultiplier,
+                                                              endIndent: 3 *
+                                                                  SizeConfig
+                                                                      .widthMultiplier,
+                                                              thickness: 1,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: 90 *
+                                                                SizeConfig
+                                                                    .widthMultiplier,
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () {},
+                                                              child: Container(
+                                                                  width: double
+                                                                      .maxFinite,
+                                                                  height: 6 *
+                                                                      SizeConfig
+                                                                          .heightMultiplier,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color:
+                                                                        colorBlack_2,
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(
+                                                                      1.5 *
+                                                                          SizeConfig
+                                                                              .imageSizeMultiplier,
+                                                                    )),
+                                                                    shape: BoxShape
+                                                                        .rectangle,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                            EdgeInsets.only(left: 5.0 * SizeConfig.widthMultiplier),
+                                                                        child:
+                                                                            CustText(
+                                                                          name:
+                                                                              "Report",
+                                                                          size:
+                                                                              1.8,
+                                                                          fontWeightName:
+                                                                              FontWeight.w800,
+                                                                          colors:
+                                                                              colorWhite,
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(1.5 *
+                                                                                SizeConfig.widthMultiplier),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          "assets/icons/flag_icon.png",
+                                                                          height:
+                                                                              8 * SizeConfig.heightMultiplier,
+                                                                          width:
+                                                                              11 * SizeConfig.widthMultiplier,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 30,
+                                          height: 40,
+                                          color: Colors.transparent,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: 1 *
+                                                    SizeConfig.widthMultiplier,
+                                                height: 1 *
+                                                    SizeConfig.heightMultiplier,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.white),
+                                              ),
+                                              SizedBox(
+                                                width: 3,
+                                              ),
+                                              Container(
+                                                width: 1 *
+                                                    SizeConfig.widthMultiplier,
+                                                height: 1 *
+                                                    SizeConfig.heightMultiplier,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.white),
+                                              ),
+                                              SizedBox(
+                                                width: 3,
+                                              ),
+                                              Container(
+                                                width: 1 *
+                                                    SizeConfig.widthMultiplier,
+                                                height: 1 *
+                                                    SizeConfig.heightMultiplier,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.white),
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
