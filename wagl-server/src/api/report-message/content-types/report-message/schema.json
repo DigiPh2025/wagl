@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "report_messages",
+  "info": {
+    "singularName": "report-message",
+    "pluralName": "report-messages",
+    "displayName": "reportMessage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "respond_text": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "report_user_reasons",
+  "info": {
+    "singularName": "report-user-reason",
+    "pluralName": "report-user-reasons",
+    "displayName": "reportUserReason"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "reason": {
+      "type": "string"
+    }
+  }
+}

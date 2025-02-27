@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "wagls",
+  "info": {
+    "singularName": "wagl",
+    "pluralName": "wagls",
+    "displayName": "wagl",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "default": "  ",
+      "required": true,
+      "maxLength": 500
+    },
+    "media": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "location": {
+      "type": "text",
+      "required": false,
+      "default": " "
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "interested_categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::interested-category.interested-category"
+    },
+    "good_tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::good-tag.good-tag"
+    },
+    "total_likes": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_comments": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_views": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_saved": {
+      "type": "integer",
+      "default": 0
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "product_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    }
+  }
+}

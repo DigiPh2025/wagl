@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "comment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "comment_text": {
+      "type": "text"
+    },
+    "wagl_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::wagl.wagl"
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "comment_media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "total_comment_likes": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

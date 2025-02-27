@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "36552390444",
+    "project_id": "wagl-a8aad",
+    "storage_bucket": "wagl-a8aad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36552390444:android:e0f7e4a9bc401b06a1de89",
+        "android_client_info": {
+          "package_name": "com.wagl.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36552390444-qrqp861i512a1r0o7l880kr91eej2c9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wagl.application",
+            "certificate_hash": "f7854eb08819aee935d88783646e0e979504b1ff"
+          }
+        },
+        {
+          "client_id": "36552390444-j0ob4hugg3bml636haluj9p77nslu1gv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEG9FRt6A8BxsJ3XHVDWH2pA6McBkYnQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36552390444-j0ob4hugg3bml636haluj9p77nslu1gv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "36552390444-sg80t6fanatpevq0mmuecu7a5ve9gdks.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wagl.application"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

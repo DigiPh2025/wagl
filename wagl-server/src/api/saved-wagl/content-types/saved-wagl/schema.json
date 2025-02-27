@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "saved_wagls",
+  "info": {
+    "singularName": "saved-wagl",
+    "pluralName": "saved-wagls",
+    "displayName": "SavedWagl"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "wagl_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::wagl.wagl"
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

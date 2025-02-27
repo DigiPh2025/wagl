@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "like_comments",
+  "info": {
+    "singularName": "like-comment",
+    "pluralName": "like-comments",
+    "displayName": "likeComment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "wagl_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::wagl.wagl"
+    },
+    "comment_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::comment.comment"
+    }
+  }
+}

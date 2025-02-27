@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "block_users",
+  "info": {
+    "singularName": "block-user",
+    "pluralName": "block-users",
+    "displayName": "blockUser",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "block_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

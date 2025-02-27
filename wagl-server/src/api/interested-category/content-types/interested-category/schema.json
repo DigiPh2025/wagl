@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "interested_categories",
+  "info": {
+    "singularName": "interested-category",
+    "pluralName": "interested-categories",
+    "displayName": "interestedCategory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categoryName": {
+      "type": "string"
+    },
+    "categoryIcon": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "categoryImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "totalWagls": {
+      "type": "integer",
+      "required": true,
+      "default": 0
+    }
+  }
+}

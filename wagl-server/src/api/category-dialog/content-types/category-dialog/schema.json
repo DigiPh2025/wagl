@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "category_dialogs",
+  "info": {
+    "singularName": "category-dialog",
+    "pluralName": "category-dialogs",
+    "displayName": "CategoryDialog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    }
+  }
+}

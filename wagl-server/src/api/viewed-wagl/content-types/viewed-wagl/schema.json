@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "viewed_wagls",
+  "info": {
+    "singularName": "viewed-wagl",
+    "pluralName": "viewed-wagls",
+    "displayName": "viewedWagl"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "waglIDS": {
+      "type": "text"
+    }
+  }
+}

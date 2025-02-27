@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "report_users",
+  "info": {
+    "singularName": "report-user",
+    "pluralName": "report-users",
+    "displayName": "reportUser",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "comment": {
+      "type": "text"
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "reason_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::report-user-reason.report-user-reason"
+    },
+    "reported_by": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

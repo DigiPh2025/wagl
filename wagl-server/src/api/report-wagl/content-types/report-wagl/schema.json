@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "report_wagls",
+  "info": {
+    "singularName": "report-wagl",
+    "pluralName": "report-wagls",
+    "displayName": "ReportWagl"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "wagl_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::wagl.wagl"
+    }
+  }
+}

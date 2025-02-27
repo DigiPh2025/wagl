@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_page_videos",
+  "info": {
+    "singularName": "home-page-video",
+    "pluralName": "home-page-videos",
+    "displayName": "homePageVideo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "videoLink": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

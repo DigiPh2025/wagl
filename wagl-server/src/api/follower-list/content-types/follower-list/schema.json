@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "follower_lists",
+  "info": {
+    "singularName": "follower-list",
+    "pluralName": "follower-lists",
+    "displayName": "followerList"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userID": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "followersID": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
